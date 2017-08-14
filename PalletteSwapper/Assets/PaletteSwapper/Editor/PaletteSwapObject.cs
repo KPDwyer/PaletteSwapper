@@ -6,7 +6,7 @@ namespace PaletteSwapper
 {
 
     /// <summary>
-    /// ScriptableObject that retains pallette swapping data (once you've set it up once, you can load this object
+    /// ScriptableObject that retains palette swapping data (once you've set it up once, you can load this object
     /// to make further tweaks without having to redefine your palette).
     /// </summary>
     public class PaletteSwapObject : ScriptableObject
