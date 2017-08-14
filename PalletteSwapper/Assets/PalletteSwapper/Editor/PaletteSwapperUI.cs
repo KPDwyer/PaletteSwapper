@@ -20,10 +20,7 @@ namespace PaletteSwapper
 
 
         private bool previewFocus = false;
-        private bool updateOnChange = false;
-        private bool saveOnChange = false;
 
-        private bool showSpriteInfo = true;
 
 
 
@@ -99,8 +96,9 @@ namespace PaletteSwapper
             if (GUILayout.Button("New Swap Object"))
             {
                 PaletteSwapObject temp = ScriptableObject.CreateInstance<PaletteSwapObject>();
-                temp.Filename = texBuilder.fileName;
+                temp.Filename = "New Palette Swap Object";
                 temp.ColorOps = new System.Collections.Generic.List<ColorOperation>();
+
                 string AssetPath = AssetDatabase.GenerateUniqueAssetPath("Assets/" + temp.Filename + ".asset");
                 AssetDatabase.CreateAsset(temp, AssetPath);
 
@@ -110,13 +108,14 @@ namespace PaletteSwapper
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = temp;
 
+
             }
 
 
             if (swapObject != null)
             {
-                swapObject.Filename = texBuilder.fileName = EditorGUILayout.TextField("File Name", swapObject.Filename);
-                swapObject.SourceAsset = (Texture2D)EditorGUILayout.ObjectField("Sprite", swapObject.SourceAsset, typeof(Texture2D));
+                swapObject.Filename = texBuilder.fileName = EditorGUILayout.TextField("Asset File Name", swapObject.Filename);
+                swapObject.SourceAsset = (Texture2D)EditorGUILayout.ObjectField("Sprite", swapObject.SourceAsset, typeof(Texture2D), false);
 
 
 
