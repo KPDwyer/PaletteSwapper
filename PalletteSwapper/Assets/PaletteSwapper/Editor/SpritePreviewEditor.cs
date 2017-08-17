@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace PaletteSwapper
+namespace KPD.PaletteSwapper
 {
 
 
@@ -31,7 +31,10 @@ namespace PaletteSwapper
     
                     
             Rect g = new Rect(0, 0, position.width, position.height);
-            EditorGUI.DrawPreviewTexture(g, mGray, null, ScaleMode.StretchToFill, 1.0f);
+
+            EditorGUI.DrawPreviewTexture(g, mGray, null, ScaleMode.ScaleAndCrop, 1.0f);
+  
+                
 
 
             if (eMaterial == null)
@@ -41,7 +44,8 @@ namespace PaletteSwapper
 
             if (mTex != null)
             {
-                EditorGUI.DrawPreviewTexture(new Rect(0, 0, position.width, position.height), mTex, eMaterial, ScaleMode.ScaleToFit, 1.0f);
+                float ratio = (float)mTex.width / (float)mTex.height;
+                EditorGUI.DrawPreviewTexture(new Rect(0, 0, position.width, position.height), mTex, eMaterial, ScaleMode.ScaleToFit, ratio);
             }
         }
 

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 
-namespace PaletteSwapper
+namespace KPD.PaletteSwapper
 {
     /// <summary>
     /// A modified version of SpriteMaker's TextureBuilder.  

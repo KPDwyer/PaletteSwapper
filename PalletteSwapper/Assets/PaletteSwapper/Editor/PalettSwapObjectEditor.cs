@@ -1,41 +1,28 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEditor;
 
-namespace PaletteSwapper
+namespace KPD.PaletteSwapper
 {
-
-    /// <summary>
-    /// Handles UI for PaletteSwapper's main window.
-    /// Might be a bit messy, loosely based on SpriteMaker.
-    /// </summary>
-    public class PaletteSwapperUI : EditorWindow
+    [CustomEditor(typeof(PaletteSwapObject))]
+    public class PalettSwapObjectEditor : Editor
     {
 
         TextureBuilder texBuilder;
 
         SpritePreviewEditor spritePreview;
-
-        public PaletteSwapObject swapObject;
-
-
+        PaletteSwapObject swapObject;
 
         private bool previewFocus = false;
 
 
-
-
-        [MenuItem("Window/PaletteSwapper")]
-        static void Init()
+        public override void OnInspectorGUI()
         {
-            PaletteSwapperUI window = (PaletteSwapperUI)EditorWindow.GetWindow(typeof(PaletteSwapperUI), false, "Palette Swapper");
-            window.texBuilder = new TextureBuilder();
-            window.Show();
-        }
+            EditorGUILayout.LabelField("Hello");
 
-        void OnGUI()
-        {
+            swapObject = target as PaletteSwapObject;
 
-            //if the editor window was left open on a new Unity bootup, init doesn't get called.
             if (texBuilder == null)
             {
                 texBuilder = new TextureBuilder();
@@ -49,9 +36,6 @@ namespace PaletteSwapper
                 spritePreview.Focus();
                 previewFocus = false;
             }
-
-
-
         }
 
         /// <summary>
@@ -86,38 +70,32 @@ namespace PaletteSwapper
             texBuilder.SaveTexture();
         }
 
+        /// <summary>
+        /// Menu Option to Create a PaletteSwapObject
+        /// </summary>
+        [MenuItem("Tools/New PaletteSwap")]
+        static void CreateNewPaletteSwapObject()
+        {
+            PaletteSwapObject temp = ScriptableObject.CreateInstance<PaletteSwapObject>();
+            temp.Filename = "New Palette Swap Object";
+            temp.ColorOps = new System.Collections.Generic.List<ColorOperation>();
+
+            string AssetPath = AssetDatabase.GenerateUniqueAssetPath("Assets/" + temp.Filename + ".asset");
+            AssetDatabase.CreateAsset(temp, AssetPath);
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            EditorUtility.FocusProjectWindow();
+            Selection.activeObject = temp;
+
+        }
+
 
         private void GUIPaletteSwapper()
         {
-            //loadAsset = (SpriteMakerAsset)EditorGUILayout.ObjectField(activeAsset, typeof(SpriteMakerAsset), false);
-
-            swapObject = (PaletteSwapObject)EditorGUILayout.ObjectField(swapObject, typeof(PaletteSwapObject), false);
-
-            if (GUILayout.Button("New Swap Object"))
-            {
-                PaletteSwapObject temp = ScriptableObject.CreateInstance<PaletteSwapObject>();
-                temp.Filename = "New Palette Swap Object";
-                temp.ColorOps = new System.Collections.Generic.List<ColorOperation>();
-
-                string AssetPath = AssetDatabase.GenerateUniqueAssetPath("Assets/" + temp.Filename + ".asset");
-                AssetDatabase.CreateAsset(temp, AssetPath);
-
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-                swapObject = temp;
-                EditorUtility.FocusProjectWindow();
-                Selection.activeObject = temp;
-
-
-            }
-
-
             if (swapObject != null)
             {
-                swapObject.Filename = texBuilder.fileName = EditorGUILayout.TextField("Asset File Name", swapObject.Filename);
                 swapObject.SourceAsset = (Texture2D)EditorGUILayout.ObjectField("Sprite", swapObject.SourceAsset, typeof(Texture2D), false);
-
-
 
                 if (swapObject.SourceAsset != null && texBuilder.SourceAsset != swapObject.SourceAsset)
                 {
@@ -130,7 +108,7 @@ namespace PaletteSwapper
                         AssetDatabase.ImportAsset(assetpath);
                         AssetDatabase.Refresh();
                     }
-                     
+
 
                     texBuilder.SetTextureSource(swapObject.SourceAsset);
                 }
@@ -164,8 +142,9 @@ namespace PaletteSwapper
                 {
                     swapObject.ColorOps.Remove(deleteOp);
                 }
-
+                swapObject.Filename = texBuilder.fileName = EditorGUILayout.TextField("Filename", swapObject.Filename);
             }
+
 
             GUILayout.BeginHorizontal();
             {
@@ -186,5 +165,7 @@ namespace PaletteSwapper
 
         }
 
+
     }
+
 }

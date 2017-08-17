@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PaletteSwapper
+namespace KPD.PaletteSwapper
 {
 
     /// <summary>
