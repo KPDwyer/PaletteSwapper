@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b135c35d68d4307a1b69ceb8994cb5, type: 3}
+  m_Name: 2-swap
+  m_EditorClassIdentifier: 
+  SourceAsset: {fileID: 2800000, guid: 10adf246d58814d039d5041595edc39d, type: 3}
+  Filename: 
+  ColorOps:
+  - sampledColor: {r: 0.38823533, g: 0.60784316, b: 1, a: 0}
+    targetColor: {r: 0.9843138, g: 0.9490197, b: 0.21176472, a: 0}
+    valChanged: 0
+  - sampledColor: {r: 0.9843138, g: 0.9490197, b: 0.21176472, a: 0}
+    targetColor: {r: 0.27058825, g: 0.15686275, b: 0.23529413, a: 0}
+    valChanged: 0
+  - sampledColor: {r: 0.27058825, g: 0.15686275, b: 0.23529413, a: 0}
+    targetColor: {r: 0.6745098, g: 0.19607845, b: 0.19607845, a: 0}
+    valChanged: 0
+  - sampledColor: {r: 0.6745098, g: 0.19607845, b: 0.19607845, a: 0}
+    targetColor: {r: 0.38823533, g: 0.60784316, b: 1, a: 0}
+    valChanged: 0
