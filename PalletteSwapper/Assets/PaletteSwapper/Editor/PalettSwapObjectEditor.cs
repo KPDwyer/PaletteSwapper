@@ -19,7 +19,6 @@ namespace KPD.PaletteSwapper
 
         public override void OnInspectorGUI()
         {
-            EditorGUILayout.LabelField("Hello");
 
             swapObject = target as PaletteSwapObject;
 
@@ -115,6 +114,20 @@ namespace KPD.PaletteSwapper
 
                 if (swapObject.SourceAsset == null)
                     return;
+
+                if (GUILayout.Button("Reset/Load Source Palette"))
+                {
+                    List<Color> colors = texBuilder.GetSourceTextureColors();
+                    swapObject.ColorOps.Clear();
+                    foreach (Color c in colors)
+                    {
+                        ColorOperation op = new ColorOperation();
+                        op.sampledColor = c;
+
+                        swapObject.ColorOps.Add(op);
+                    }
+
+                }
 
                 ColorOperation deleteOp = null;
                 foreach (ColorOperation co in swapObject.ColorOps)

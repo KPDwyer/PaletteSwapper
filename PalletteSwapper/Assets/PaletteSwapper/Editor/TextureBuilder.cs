@@ -41,6 +41,32 @@ namespace KPD.PaletteSwapper
             sourcePixels = source.GetPixels(); 
         }
 
+        /// <summary>
+        /// returns a listof all the unique colors in the source image.
+        /// </summary>
+        /// <returns>The source texture colors.</returns>
+        public List<Color> GetSourceTextureColors()
+        {
+            List<Color> result = new List<Color>();
+            for (int i = 0; i < sourcePixels.Length; i++)
+            {
+                if (sourcePixels[i].a == 0)
+                    continue;
+                
+                if (!result.Contains(sourcePixels[i]))
+                {
+                    result.Add(new Color(sourcePixels[i].r, sourcePixels[i].g, sourcePixels[i].b, sourcePixels[i].a));
+                }
+            }   
+            result.Sort(delegate(Color x, Color y)
+                {
+                    return y.maxColorComponent.CompareTo(x.maxColorComponent);                
+                });
+
+
+            return result;
+        }
+
 
         /// <summary>
         /// Gets the texture in its current state
